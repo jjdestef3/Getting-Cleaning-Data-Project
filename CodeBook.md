@@ -34,17 +34,5 @@ readings and 3 axial linear acceleration readings.
 The following process was used in the documented order. This process was implemented in an R
 script called run_analysis.R:
     1. Merges the training and the test sets to create one data set.
-        a. Data sets for training and testing were combined based on the provided files.
-        b. X_test.txt and X_train.txt was combined using rbind
-        c. Y_test.txt and Y_train.txt was combined using rbind
-        d. subject_test.txt and subject_train.txt was combined using rbind
-
-
-
-Extracts only the measurements on the mean and standard deviation for each measurement. 
-Uses descriptive activity names to name the activities in the data set
-Appropriately labels the data set with descriptive variable names. 
-From the data set in step 4, creates a second, independent tidy data set with the average of
-each variable for each activity and each subject.
-
+    
 
