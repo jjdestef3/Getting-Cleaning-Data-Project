@@ -51,6 +51,13 @@ run_analysis.R script. This script performs the following:
   
 4. Appropriately labels the data set with descriptive variable names
   * The column names in the combined and filtered X data set where further modified replacing -std with Std and -mean with Mean.
-  * 
+  * The column name for the subject combined data set was set to "subject"
+  * The column Name for the combined Y data set was set to "activity"
+  * The resultant X (filtered for only std/mean), Y, and subject data sets where combined together using cbind
+  * The combined data set was written out to the file system.
+ 
 5. From the data set in step 4, creates a second, independent tidy data set with the average of
 each variable for each activity and each subject.
+  * Using the plyr R library the data set produced from step 4 was used to create another data set
+  * The new data set contains the mean for each variable for each activity and each subject
+  * This data set was then written to the file system
