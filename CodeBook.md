@@ -12,6 +12,8 @@ used. Briefly, the experiments was carried out with a group of 30 volunteers who
 phones embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity reading
 were captured at a constant rate of 50Hz. A video is also avaialble at the site.
 
+---
+
 ## Source of Data
 The data used for this project can be found here: 
 
@@ -19,15 +21,24 @@ https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Datas
 
 The zip file contains the relevant data files as well as a description of the data.
 
+---
+
 ## Variables Used
+Each of the variables for WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING
+was used for each test subject. For each variable, 6 readings were used; 3 axial angular velocity
+readings and 3 axial linear acceleration readings.
 
-
+---
 
 ## Description of Transformation and Cleaning
 The following process was used in the documented order. This process was implemented in an R
 script called run_analysis.R:
 
 1. Merges the training and the test sets to create one data set.
+    a. Data sets for training and testing were combined based on the provided files.
+    b. X_test.txt and X_train.txt was combined using rbind
+    c. Y_test.txt and Y_train.txt was combined using rbind
+    d. subject_test.txt and subject_train.txt was combined using rbind
 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
 3. Uses descriptive activity names to name the activities in the data set
 4. Appropriately labels the data set with descriptive variable names. 
