@@ -32,14 +32,13 @@ readings and 3 axial linear acceleration readings.
 
 ## Description of Transformation and Cleaning
 The following process was used in the documented order. This process was implemented in an R
-script called run_analysis.R:
+script called run_analysis.R. This script performs the following:
 
-* Merges the training and the test sets to create one data set.
-    
-Data sets for training and testing were combined based on the provided files.
-X_test.txt and X_train.txt was combined using rbind
-Y_test.txt and Y_train.txt was combined using rbind
-subject_test.txt and subject_train.txt was combined using rbind
+  * Merges the training and the test sets to create one data set.
+    * Data sets for training and testing were combined based on the provided files.
+    * X_test.txt and X_train.txt was combined using rbind
+    * Y_test.txt and Y_train.txt was combined using rbind
+    * subject_test.txt and subject_train.txt was combined using rbind
 
 
 
