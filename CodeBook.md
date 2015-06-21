@@ -38,6 +38,9 @@ script called run_analysis.R:
         b. X_test.txt and X_train.txt was combined using rbind
         c. Y_test.txt and Y_train.txt was combined using rbind
         d. subject_test.txt and subject_train.txt was combined using rbind
+
+
+
 Extracts only the measurements on the mean and standard deviation for each measurement. 
 Uses descriptive activity names to name the activities in the data set
 Appropriately labels the data set with descriptive variable names. 
