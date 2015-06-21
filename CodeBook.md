@@ -33,6 +33,6 @@ readings and 3 axial linear acceleration readings.
 ## Description of Transformation and Cleaning
 The following process was used in the documented order. This process was implemented in an R
 script called run_analysis.R:
-    1. Merges the training and the test sets to create one data set.
+*1. Merges the training and the test sets to create one data set.
     
 
