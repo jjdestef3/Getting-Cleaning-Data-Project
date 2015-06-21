@@ -33,5 +33,5 @@ documentation that is included in the run_analysis.R file. This will describe wh
 available when performing the analysis. 
 
 To perform the cleaning and analysis with program defaults execute the run_analysis.R script from
-with the R environment (I use RStudio). Theh test data set does not need to be present when the
+within the R environment (I use RStudio). The test data set does not need to be present when the
 script is run as it will be downloaded and extracted automatically if not already there.
