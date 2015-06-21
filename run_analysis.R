@@ -1,9 +1,31 @@
-# Function to run data analysis for ....
-# This function takes an optional reloadData parameter. If true the
-# any current data files and directories are removed. If false, then a 
-# check is done to see if the datafile is present. If not the it is re-downloaded
-# and extracted.
-run_analysis <- function(reloadData=FALSE) {
+################################################################################################################
+# Function to run data analysis for Coursera Getting and Cleaning Data Course Final Project.
+# This function takes 3 optional parameters; reloadData, cleanedDataSetFileName, cleanedAvgDataSetFileName.
+#
+# relaodData: The purpose is to re-download the data file. The default is false. The unziped data directory will 
+#             always be deleted and the data file unzipped for each run. If true, and the data file exisits
+#             in the directory, it will be deleted and re-downloaded. Note: If the data file does not exist 
+#             it will be downloaded first, regardless of the value for reloadData.
+#
+# cleanedDataSetFileName: The name of the combined, cleaned data set to write (Step 4 below). The default is
+#             "cleaned_data.txt".
+#
+# cleanedAvgDataSetFileName: The name of the the data set that contains the averages (Step 5 below). The 
+#             default is "cleaned_avg_data.txt".
+# 
+# The steps that is function performs after the test data set has been downloaded and unzipped are as follows:
+# 1. Merges the training and the test sets to create one data set.
+# 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+# 3. Uses descriptive activity names to name the activities in the data set
+# 4. Appropriately labels the data set with descriptive variable names. 
+# 5. From the data set in step 4, creates a second, independent tidy data set with the average of each variable
+#    for each activity and each subject.
+#
+# Required librarys: plyr
+#
+################################################################################################################
+run_analysis <- function(reloadData=FALSE, cleanedDataSetFileName="cleaned_data.txt",
+                         cleanedAvgDataSetFileName="cleaned_avg_data.txt") {
     
     # Data files and directory
     dataFile <- "dataset.zip"
@@ -13,6 +35,11 @@ run_analysis <- function(reloadData=FALSE) {
     ########################################################################################
     # First section sets up data file and directory
     ########################################################################################
+    
+    # Return file names
+    getFilePath <- function(fileName) {
+        paste("./",dataDir,fileName, sep = "")
+    }
     
     # Deletes data file if there
     cleanUp <- function() {
@@ -50,19 +77,19 @@ run_analysis <- function(reloadData=FALSE) {
     #1. Combine training and test data to make a single data set
     ############################################################
     # Start with X
-    xTest <- read.table(paste("./",dataDir,"/test/X_test.txt", sep = ""))
-    xTrain <- read.table(paste("./",dataDir,"/train/X_train.txt", sep = ""))
+    xTest <- read.table(getFilePath("/test/X_test.txt"))
+    xTrain <- read.table(getFilePath("/train/X_train.txt"))
     xCombined <- rbind(xTest, xTrain)
     
     # Then Y
-    yTest <- read.table(paste("./",dataDir,"/test/y_test.txt", sep = ""))
-    yTrain <- read.table(paste("./",dataDir,"/train/y_train.txt", sep = ""))
-    yCombine <- rbind(yTest, yTrain)
+    yTest <- read.table(getFilePath("/test/y_test.txt"))
+    yTrain <- read.table(getFilePath("/train/y_train.txt"))
+    yCombined <- rbind(yTest, yTrain)
     
     # Then subject
-    sTest <- read.table(paste("./",dataDir,"/test/subject_test.txt", sep = ""))
-    sTrain <- read.table(paste("./",dataDir,"/train/subject_train.txt", sep = ""))
-    sCombine <- rbind(sTest, sTrain)
+    sTest <- read.table(getFilePath("/test/subject_test.txt"))
+    sTrain <- read.table(getFilePath("/train/subject_train.txt"))
+    sCombined <- rbind(sTest, sTrain)
     
     ###########################################################
     #2. Extracts only the measurements on the mean and standard 
@@ -70,7 +97,7 @@ run_analysis <- function(reloadData=FALSE) {
     ###########################################################
     
     # Make feature names to colum headers for combined data set 
-    featureNames <- read.table(paste("./",dataDir,"/features.txt", sep=""))[,2]
+    featureNames <- read.table(getFilePath("/features.txt"))[,2]
     names(xCombined) <- featureNames
     
     # Now get the colums that have mean or std in them
@@ -80,15 +107,52 @@ run_analysis <- function(reloadData=FALSE) {
     meanStdDataTbl <- xCombined[, meanStdCols]
     
     ###########################################################
-    #3.
+    #3. Use descriptive activity names to name the activities
+    #   in the data set
     ###########################################################
     
-    ###########################################################
-    #4.
-    ###########################################################
+    # Read the nice names
+    acts <- read.table(getFilePath("/activity_labels.txt"))
+    
+    # make description lower case
+    acts[, 2] <- tolower(as.character(acts[, 2]))
+    
+    # Set the labels based on the y data value:
+    # Get the data values
+    yData <- yCombined[,1]
+    
+    # Now map the description in acts based on the value of yData
+    # and put that in the first column of yCombine
+    yCombined[,1] <- acts[yData, 2]
+    
+    # Give the column a header
+    names(yCombined) <- "activity"
     
     ###########################################################
-    #5.
+    #4. Appropriately label the data set with descriptive 
+    #   variable names and create a final combined data set
     ###########################################################
     
+    # Change -mean() to Mean
+    names(meanStdDataTbl) <- gsub("-mean\\(\\)", "Mean", names(meanStdDataTbl))
+    
+    # Change -std() to Std
+    names(meanStdDataTbl) <- gsub("-std\\(\\)", "Std", names(meanStdDataTbl))
+    
+    # Give subject a column heading
+    names(sCombined) <- "subject"
+    
+    # Combine into single data set and write out
+    allCombined <- cbind(meanStdDataTbl, yCombined, sCombined)
+    write.table(allCombined, getFilePath(paste("/",cleanedDataSetFileName, sep = "")))
+    
+    ###########################################################
+    #5. From the data set in step 4, creates a second, 
+    #   independent tidy data set with the average of each 
+    #   variable for each activity and each subject and write
+    #   it out
+    ###########################################################
+    library(plyr)
+    allCombinedAvgs <- ddply(allCombined, .(subject, activity), numcolwise(mean))
+    write.table(allCombinedAvgs, getFilePath(paste("/",cleanedAvgDataSetFileName, sep = "")), row.name=FALSE)
 }
