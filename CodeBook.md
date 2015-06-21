@@ -32,7 +32,8 @@ readings and 3 axial linear acceleration readings.
 
 ## Description of Transformation and Cleaning
 The following process was used in the documented order. This process was implemented in an R
-script called run_analysis.R. This script performs the following:
+script called run_analysis.R. For a detailed coding description refer to the documentation in the 
+run_analysis.R script. This script performs the following:
 
 1. Merges the training and the test sets to create one data set.
   * Data sets for training and testing were combined based on the provided files.
@@ -41,10 +42,15 @@ script called run_analysis.R. This script performs the following:
   * subject_test.txt and subject_train.txt was combined using rbind
 
 2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+  * The grep function was used to extract a list of column names that contained mean() and std() from the x combined dataset
+  * The list was used to create a final X combined data set with only the mean and std columns
 
 3. Uses descriptive activity names to name the activities in the data set
-
-4. Appropriately labels the data set with descriptive variable names. 
-
+  * Labels from the activity_labels.txt file where used as labels in the Y combined data set
+  * The labels in activity_labels.txt where first forced to lower case before applying
+  
+4. Appropriately labels the data set with descriptive variable names
+  * The column names in the combined and filtered X data set where further modified replacing -std with Std and -mean with Mean.
+  * 
 5. From the data set in step 4, creates a second, independent tidy data set with the average of
 each variable for each activity and each subject.
