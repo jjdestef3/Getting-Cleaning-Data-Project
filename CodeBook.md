@@ -1,3 +1,37 @@
 # CodeBook for Getting and Cleaning Data, a Coursera course
 ---
-describes the variables, the data, and any transformations or work that you performed to clean
+
+## Objective of Assignment
+The objective is to clean and perform limited analysis on a data set which contains data collected from 
+accelerometers from the Samsung Galaxy S smartphone. A full description of the data is available at: 
+
+http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones 
+
+This project, titled "Human Activity Recognition Using Smartphones Data Set", contains the data set being
+used. Briefly, the experiments was carried out with a group of 30 volunteers who each performed six activities (WALKING, WALKING_UPSTAIRS, WALKING_DOWNSTAIRS, SITTING, STANDING, LAYING) wearing a smartphone. Using the 
+phones embedded accelerometer and gyroscope, 3-axial linear acceleration and 3-axial angular velocity reading
+were captured at a constant rate of 50Hz. A video is also avaialble at the site.
+
+## Source of Data
+The data used for this project can be found here: 
+
+https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip 
+
+The zip file contains the relevant data files as well as a description of the data.
+
+## Variables Used
+
+
+
+## Description of Transformation and Cleaning
+The following process was used in the documented order. This process was implemented in an R
+script called run_analysis.R:
+
+###1. Merges the training and the test sets to create one data set.
+###2. Extracts only the measurements on the mean and standard deviation for each measurement. 
+###3. Uses descriptive activity names to name the activities in the data set
+###4. Appropriately labels the data set with descriptive variable names. 
+###5. From the data set in step 4, creates a second, independent tidy data set with the average of
+      each variable for each activity and each subject.
+
+
