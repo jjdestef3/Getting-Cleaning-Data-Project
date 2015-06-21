@@ -24,3 +24,13 @@ write an R script called run_analysis.R which perform the following objectives:
     4. Appropriately labels the data set with descriptive variable names. 
     5. From the data set in step 4, creates a second, independent tidy data set with the 
        average of each variable for each activity and each subject.
+       
+## Running the analysis
+
+First, read the CodeBook.md file for a description of the projects objective, the variables used, 
+and any required transformations that were performed on the test data. Second, read the 
+documentation that is included in the run_analysis.R file. This will describe what options are 
+available when performing the analysis. 
+
+To perform the cleaning and analysis with program defaults execute the run_analysis.R script from
+with the R environment (I use RStudio).
